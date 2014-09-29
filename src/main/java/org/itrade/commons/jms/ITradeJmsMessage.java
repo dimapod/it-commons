@@ -2,61 +2,87 @@ package org.itrade.commons.jms;
 
 public class ITradeJmsMessage {
 
-    private String type;
-    private String orientation;
-    private String body;
+    private String id;
+    private String category;
+    private ITradeMessageType type;
+    private String content;
+    private ITradeMessageStatus status;
+
     private String jmsMessageId;
     private String jmsCorrelationId;
 
     public ITradeJmsMessage() {
     }
 
-    public String getType() {
+    public String getId() {
+        return id;
+    }
+
+    public ITradeJmsMessage setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public ITradeJmsMessage setCategory(String category) {
+        this.category = category;
+        return this;
+    }
+
+    public ITradeMessageType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public ITradeJmsMessage setType(ITradeMessageType type) {
         this.type = type;
+        return this;
     }
 
-    public String getOrientation() {
-        return orientation;
+    public ITradeMessageStatus getStatus() {
+        return status;
     }
 
-    public void setOrientation(String orientation) {
-        this.orientation = orientation;
+    public ITradeJmsMessage setStatus(ITradeMessageStatus status) {
+        this.status = status;
+        return this;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public ITradeJmsMessage setContent(String content) {
+        this.content = content;
+        return this;
     }
 
     public String getJmsMessageId() {
         return jmsMessageId;
     }
 
-    public void setJmsMessageId(final String jmsMessageId) {
+    public ITradeJmsMessage setJmsMessageId(final String jmsMessageId) {
         this.jmsMessageId = jmsMessageId;
+        return this;
     }
 
     public String getJmsCorrelationId() {
         return jmsCorrelationId;
     }
 
-    public void setJmsCorrelationId(String jmsCorrelationId) {
+    public ITradeJmsMessage setJmsCorrelationId(String jmsCorrelationId) {
         this.jmsCorrelationId = jmsCorrelationId;
+        return this;
     }
 
     @Override
     public String toString() {
         return "ITradeJmsMessage{" +
                 "type='" + type + '\'' +
-                ", orientation='" + orientation + '\'' +
-                ", body='" + body + '\'' +
+                ", status='" + status + '\'' +
+                ", content='" + content + '\'' +
                 ", jmsMessageId='" + jmsMessageId + '\'' +
                 ", jmsCorrelationId='" + jmsCorrelationId + '\'' +
                 '}';

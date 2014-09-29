@@ -4,6 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="iTradeMessageConverter" class="org.itrade.commons.jms.ITradeMessageConverter"/>
+
     <bean id="hornetConnectionFactory" class="org.hornetq.jms.client.HornetQJMSConnectionFactory">
         <constructor-arg name="ha" value="false"/>
         <constructor-arg>

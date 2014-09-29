@@ -15,9 +15,11 @@ public class ITradeMessageConverter implements MessageConverter {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public final static String MSG_ID = "MSG_ID";
+    public final static String MSG_CATEGORY = "MSG_CATEGORY";
     public final static String MSG_TYPE = "MSG_TYPE";
-    public final static String MSG_DIRECTION = "MSG_DIRECTION";
-    public final static String MSG_BODY = "MSG_BODY";
+    public final static String MSG_STATUS = "MSG_STATUS";
+    public final static String MSG_CONTENT = "MSG_CONTENT";
 
     @Override
     public Message toMessage(final Object object, final Session session) throws JMSException, MessageConversionException {
@@ -29,12 +31,20 @@ public class ITradeMessageConverter implements MessageConverter {
     public Message toMessage(final ITradeJmsMessage ecomJmsMessage, final Session session) throws JMSException {
         MapMessage message = session.createMapMessage();
 
-        message.setStringProperty(MSG_TYPE, ecomJmsMessage.getType());
-        message.setString(MSG_TYPE, ecomJmsMessage.getType());
-        message.setStringProperty(MSG_DIRECTION, ecomJmsMessage.getOrientation());
-        message.setString(MSG_DIRECTION, ecomJmsMessage.getOrientation());
-        message.setStringProperty(MSG_BODY, ecomJmsMessage.getBody());
-        message.setString(MSG_BODY, ecomJmsMessage.getBody());
+        message.setStringProperty(MSG_ID, ecomJmsMessage.getId());
+        message.setString(MSG_ID, ecomJmsMessage.getId());
+        message.setStringProperty(MSG_CATEGORY, ecomJmsMessage.getCategory());
+        message.setString(MSG_CATEGORY, ecomJmsMessage.getCategory());
+        if (ecomJmsMessage.getType() != null) {
+            message.setStringProperty(MSG_TYPE, ecomJmsMessage.getType().name());
+            message.setString(MSG_TYPE, ecomJmsMessage.getType().name());
+        }
+        if (ecomJmsMessage.getStatus() != null) {
+            message.setStringProperty(MSG_STATUS, ecomJmsMessage.getStatus().name());
+            message.setString(MSG_STATUS, ecomJmsMessage.getStatus().name());
+        }
+        message.setStringProperty(MSG_CONTENT, ecomJmsMessage.getContent());
+        message.setString(MSG_CONTENT, ecomJmsMessage.getContent());
 
         return message;
     }
@@ -50,14 +60,12 @@ public class ITradeMessageConverter implements MessageConverter {
         iTradeJmsMessage.setJmsCorrelationId(iTradeJmsMessage.getJmsCorrelationId());
 
         // Mapping
-        iTradeJmsMessage.setType(message.getStringProperty(MSG_TYPE));
-        iTradeJmsMessage.setOrientation(message.getStringProperty(MSG_DIRECTION));
-        iTradeJmsMessage.setBody(message.getStringProperty(MSG_BODY));
+        iTradeJmsMessage.setId(message.getStringProperty(MSG_ID));
+        iTradeJmsMessage.setCategory(message.getStringProperty(MSG_CATEGORY));
+        iTradeJmsMessage.setType(ITradeMessageType.valueOf(message.getStringProperty(MSG_TYPE)));
+        iTradeJmsMessage.setStatus(ITradeMessageStatus.valueOf(message.getStringProperty(MSG_STATUS)));
+        iTradeJmsMessage.setContent(message.getStringProperty(MSG_CONTENT));
 
         return iTradeJmsMessage;
-    }
-
-    protected ITradeJmsMessage newITradeJmsMessage() {
-        return new ITradeJmsMessage();
     }
 }
