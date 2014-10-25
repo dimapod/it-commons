@@ -28,23 +28,23 @@ public class ITradeMessageConverter implements MessageConverter {
         return toMessage(iTradeJmsMessage, session);
     }
 
-    public Message toMessage(final ITradeJmsMessage ecomJmsMessage, final Session session) throws JMSException {
+    public Message toMessage(final ITradeJmsMessage itradeJmsMessage, final Session session) throws JMSException {
         MapMessage message = session.createMapMessage();
 
-        message.setStringProperty(MSG_ID, ecomJmsMessage.getId());
-        message.setString(MSG_ID, ecomJmsMessage.getId());
-        message.setStringProperty(MSG_CATEGORY, ecomJmsMessage.getCategory());
-        message.setString(MSG_CATEGORY, ecomJmsMessage.getCategory());
-        if (ecomJmsMessage.getType() != null) {
-            message.setStringProperty(MSG_TYPE, ecomJmsMessage.getType().name());
-            message.setString(MSG_TYPE, ecomJmsMessage.getType().name());
+        message.setStringProperty(MSG_ID, itradeJmsMessage.getId());
+        message.setString(MSG_ID, itradeJmsMessage.getId());
+        message.setStringProperty(MSG_CATEGORY, itradeJmsMessage.getCategory());
+        message.setString(MSG_CATEGORY, itradeJmsMessage.getCategory());
+        if (itradeJmsMessage.getType() != null) {
+            message.setStringProperty(MSG_TYPE, itradeJmsMessage.getType().name());
+            message.setString(MSG_TYPE, itradeJmsMessage.getType().name());
         }
-        if (ecomJmsMessage.getStatus() != null) {
-            message.setStringProperty(MSG_STATUS, ecomJmsMessage.getStatus().name());
-            message.setString(MSG_STATUS, ecomJmsMessage.getStatus().name());
+        if (itradeJmsMessage.getStatus() != null) {
+            message.setStringProperty(MSG_STATUS, itradeJmsMessage.getStatus().name());
+            message.setString(MSG_STATUS, itradeJmsMessage.getStatus().name());
         }
-        message.setStringProperty(MSG_CONTENT, ecomJmsMessage.getContent());
-        message.setString(MSG_CONTENT, ecomJmsMessage.getContent());
+        message.setStringProperty(MSG_CONTENT, itradeJmsMessage.getContent());
+        message.setString(MSG_CONTENT, itradeJmsMessage.getContent());
 
         return message;
     }
